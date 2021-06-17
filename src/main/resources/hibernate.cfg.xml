@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/DTL_DB</property>
+        <property name="connection.username">db_master</property>
+        <property name="connection.password">L485623e</property>
+
+<!--        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>-->
+<!--        <property name="hbm2ddl.auto">update</property>-->
+
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <mapping class="com.dtlogistics.models.Cargo"/>
+        <mapping class="com.dtlogistics.models.City"/>
+        <mapping class="com.dtlogistics.models.Distance"/>
+        <mapping class="com.dtlogistics.models.Driver"/>
+        <mapping class="com.dtlogistics.models.Order"/>
+        <mapping class="com.dtlogistics.models.Truck"/>
+        <mapping class="com.dtlogistics.models.User"/>
+        <mapping class="com.dtlogistics.models.Waypoint"/>
+        <mapping class="com.dtlogistics.models.Workshift"/>
+    </session-factory>
+</hibernate-configuration>
