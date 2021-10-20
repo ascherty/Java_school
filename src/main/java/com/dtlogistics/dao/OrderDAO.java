@@ -4,9 +4,9 @@ import com.dtlogistics.models.Order;
 
 import java.util.List;
 
-public class OrderDAO implements DAO<Order> {
+public class OrderDAO extends AbstractDAO<Order, Integer> {
 
-    @Override
+
     public Order findById(int id) {
         return null;
     }

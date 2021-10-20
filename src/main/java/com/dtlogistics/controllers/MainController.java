@@ -8,10 +8,10 @@ public class MainController {
 
     @GetMapping("/")
     public String openMainPage() {
-        return "main/login";
+        return "main/homePage";
     }
     @GetMapping("/login")
     public String openLoginPage() {
-        return "main/homePage";
+        return "main/login";
     }
 }

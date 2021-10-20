@@ -1,13 +1,21 @@
 package com.dtlogistics.models;
 
 import com.dtlogistics.models.modelEnum.UserRole;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+
+@NamedQueries({
+        @NamedQuery(name = "User.findByName",
+                query = "SELECT u FROM User u WHERE u.name=:name"),
+        @NamedQuery(name = "User.findByEmail",
+                query = "SELECT u FROM User u WHERE u.email=:email")
+})
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table (name = "users")
 public class User extends AbstractModel {
 
@@ -18,6 +26,14 @@ public class User extends AbstractModel {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToOne(mappedBy = "user")
-    private Driver driver;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

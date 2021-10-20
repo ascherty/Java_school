@@ -1,10 +1,12 @@
 package com.dtlogistics.models;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -25,9 +27,16 @@ public class City extends AbstractModel {
     @OneToMany(mappedBy = "city")
     private List<Waypoint> waypointList;
 
-    @OneToMany(mappedBy = "from", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Distance> from_id;
+//    @OneToOne(cascade=CascadeType.ALL)
+//    private Distance from_id;
+//
+//    @OneToOne(cascade=CascadeType.ALL)
+//    private Distance to_id;
 
-    @OneToMany(mappedBy = "to", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Distance> to_id;
+    @Override
+    public String toString() {
+        return "City{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

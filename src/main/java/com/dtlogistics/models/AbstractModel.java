@@ -1,10 +1,14 @@
 package com.dtlogistics.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @MappedSuperclass
+@Getter
+@Setter
 public class AbstractModel {
 
     @Id
@@ -12,11 +16,4 @@ public class AbstractModel {
     @Column(name = "id", nullable = false)
     protected int id;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

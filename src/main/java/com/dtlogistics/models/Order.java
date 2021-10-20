@@ -1,13 +1,15 @@
 package com.dtlogistics.models;
 
 import com.dtlogistics.models.modelEnum.OrderStatus;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table (name = "orders")
 public class Order extends AbstractModel {
 
@@ -19,10 +21,20 @@ public class Order extends AbstractModel {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Cargo> cargoList;
 
+    @OneToMany(mappedBy = "order")
+    private List<Driver> driverList;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Waypoint> waypointList;
 
     @OneToOne(mappedBy = "order")
     private Truck truck;
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "identifier='" + identifier + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

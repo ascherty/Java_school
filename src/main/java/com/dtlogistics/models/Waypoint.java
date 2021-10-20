@@ -1,12 +1,14 @@
 package com.dtlogistics.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "waypoints")
 public class Waypoint extends AbstractModel {
 
@@ -27,4 +29,11 @@ public class Waypoint extends AbstractModel {
     @OneToMany(mappedBy = "endWayPoint", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Cargo> endWayPoint_id;
 
+    @Override
+    public String toString() {
+        return "Waypoint{" +
+                "passed=" + passed +
+                ", queue=" + queue +
+                '}';
+    }
 }

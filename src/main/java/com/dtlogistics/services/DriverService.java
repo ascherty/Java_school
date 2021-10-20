@@ -1,11 +1,15 @@
 package com.dtlogistics.services;
 
+import com.dtlogistics.dao.CityDAO;
 import com.dtlogistics.dao.DriverDAO;
 import com.dtlogistics.dto.DriverDTO;
+import com.dtlogistics.models.City;
 import com.dtlogistics.models.Driver;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +19,8 @@ public class DriverService {
 
     @Autowired
     private DriverDAO driverDAO;
-
+    @Autowired
+    private CityDAO cityDAO;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -27,28 +32,38 @@ public class DriverService {
         return modelMapper.map(driverDto, Driver.class);
     }
 
-    public DriverDTO findDriver(int id) {
-        return convertToDto(driverDAO.findById(id));
+    @Transactional
+    public DriverDTO findDriver(String privateNumber) {
+        return convertToDto(driverDAO.findByPrivateNumber(privateNumber));
     }
 
+    @Transactional
     public List<DriverDTO> findAllDrivers() {
         return driverDAO.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void saveDriver(DriverDTO driverDto) {
-        Driver driver = new Driver();
-        modelMapper.map(driverDto, Driver.class);
-        driverDAO.save(driver);
+        Driver newDriver = convertToEntity(driverDto);
+        City city = cityDAO.findById(newDriver.getCity().getId());
+        newDriver.setCity(city);
+        driverDAO.save(newDriver);
     }
 
-//    public void deleteUser(Driver driver) {
-//        driversDao.delete(driver);
-//    }
-//
-//    public void updateUser(Driver driver) {
-//        driversDao.update(driver);
-//    }
+    @Transactional
+    public void updateDriver(DriverDTO driverDto) {
+        Driver editDriver = convertToEntity(driverDto);
+        City city = cityDAO.findById(editDriver.getCity().getId());
+        editDriver.setCity(city);
+        driverDAO.update(editDriver);
+    }
+
+    @Transactional
+    public void deleteDriver(String privateNumber) {
+        Driver driver = driverDAO.findByPrivateNumber(privateNumber);
+        driverDAO.delete(driver);
+    }
 
 }

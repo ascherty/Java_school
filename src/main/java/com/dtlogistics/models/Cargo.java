@@ -1,12 +1,14 @@
 package com.dtlogistics.models;
 
 import com.dtlogistics.models.modelEnum.CargoStatus;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table (name = "cargos")
 public class Cargo extends AbstractModel {
 
@@ -29,4 +31,13 @@ public class Cargo extends AbstractModel {
     @JoinColumn(name = "endWayPoint_id", referencedColumnName = "id", nullable = false)
     private Waypoint endWayPoint;
 
+    @Override
+    public String toString() {
+        return "Cargo{" +
+                "cargoNumber='" + cargoNumber + '\'' +
+                ", cargoName='" + cargoName + '\'' +
+                ", weight=" + weight +
+                ", status=" + status +
+                '}';
+    }
 }

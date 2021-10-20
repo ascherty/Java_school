@@ -1,50 +1,41 @@
 package com.dtlogistics.dao;
 
-import com.dtlogistics.config.HibernateSessionFactoryUtil;
 import com.dtlogistics.models.Driver;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-
+import javax.persistence.TypedQuery;
 import java.util.List;
+
 @Repository
-public class DriverDAO implements DAO<Driver> {
+public class DriverDAO extends AbstractDAO<Driver, Integer> {
 
     @Override
-    public Driver findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Driver.class, id);
+    public Driver findById(Integer id) {
+        return em.find(Driver.class, id);
+    }
+
+    public Driver findByPrivateNumber (String privateNumber) {
+        TypedQuery<Driver> query = em.createNamedQuery("Driver.findByPrivateNumber", Driver.class);
+        query.setParameter("privateNumber", privateNumber);
+        return query.getSingleResult();
     }
 
     @Override
     public List<Driver> findAll() {
-        List<Driver> drivers = (List<Driver>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Driver").list();
-        return drivers;
+        return em.createQuery("From Driver", Driver.class).getResultList();
     }
 
     @Override
     public void save(Driver driver) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(driver);
-        t.commit();
-        session.close();
+        em.persist(driver);
     }
 
     @Override
     public void update(Driver driver) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(driver);
-        t.commit();
-        session.close();
+        em.merge(driver);
     }
 
     @Override
     public void delete(Driver driver) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(driver);
-        t.commit();
-        session.close();
+        em.remove(driver);
     }
 }

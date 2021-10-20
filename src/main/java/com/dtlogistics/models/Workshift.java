@@ -1,12 +1,14 @@
 package com.dtlogistics.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table (name = "workshift")
 public class Workshift extends AbstractModel {
 
@@ -20,4 +22,12 @@ public class Workshift extends AbstractModel {
     @JoinColumn(name = "driver_id", referencedColumnName = "id", nullable = false)
     private Driver driver;
 
+    @Override
+    public String toString() {
+        return "Workshift{" +
+                "shiftStart=" + shiftStart +
+                ", shiftEnd=" + shiftEnd +
+                ", driver=" + driver +
+                '}';
+    }
 }

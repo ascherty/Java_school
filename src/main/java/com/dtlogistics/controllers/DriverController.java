@@ -1,7 +1,8 @@
 package com.dtlogistics.controllers;
 
+import com.dtlogistics.dto.CityDTO;
 import com.dtlogistics.dto.DriverDTO;
-import com.dtlogistics.models.Driver;
+import com.dtlogistics.services.CityService;
 import com.dtlogistics.services.DriverService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,42 +13,60 @@ import org.springframework.web.bind.annotation.*;
 public class DriverController {
 
     private final DriverService driverService;
+    private final CityService cityService;
 
-    public DriverController(DriverService driverService) {
+    public DriverController(DriverService driverService, CityService cityService) {
         this.driverService = driverService;
+        this.cityService = cityService;
     }
 
     @GetMapping()
     public String driversAll(Model model) {
         model.addAttribute("drivers", driverService.findAllDrivers());
+        model.addAttribute("cities", cityService.findAllCities());
         return "drivers/driversAll";
     }
 
-    @GetMapping("/{id}")
-    public String driverDetails(@PathVariable("id") int id, Model model) {
-        model.addAttribute("driver", driverService.findDriver(id));
+
+    @GetMapping("/{privateNumber}")
+    public String driverDetails(@PathVariable("privateNumber") String privateNumber, Model model) {
+        model.addAttribute("driver", driverService.findDriver(privateNumber));
         return "drivers/driverDetails";
     }
 
-
-
-    @PostMapping()
-    public String saveDriver(@ModelAttribute("driver") DriverDTO driverDto) {
-        driverService.saveDriver(driverDto);
-        return "redirect:drivers";
+    @GetMapping("/new")
+    public String newDriver(Model model) {
+        DriverDTO driverDto = new DriverDTO();
+        driverDto.setCity(new CityDTO());
+        model.addAttribute("driver", driverDto);
+        model.addAttribute("cities", cityService.findAllCities());
+        return "drivers/newDriver";
     }
 
-//    @PostMapping
-//    public String saveDriver(@RequestParam String name, @RequestParam String surname, @RequestParam int privateNumber, @RequestParam int workHours, @RequestParam String status, @RequestParam String city, @RequestParam String truck, Model model) {
-//        Driver driver = new Driver(name, surname, privateNumber, workHours, status, city, truck);
-//        driverService.saveDriver(driver);
-//        return "redirect:/driversAll";
-//    }
+    @PostMapping("/newDriver")
+    public String saveDriver(@ModelAttribute("driver") DriverDTO driverDto, Model model) {
+        driverService.saveDriver(driverDto);
+        return "redirect:/drivers";
+    }
 
-    @GetMapping("/newdriver")
-    public String newDriver(Model model) {
-        model.addAttribute("driver", new Driver());
-        return "drivers/newdriver";
+    @GetMapping("/edit/{privateNumber}")
+    public String editDriver(@PathVariable("privateNumber") String privateNumber, Model model) {
+        DriverDTO driverDto = driverService.findDriver(privateNumber);
+        model.addAttribute("driver", driverDto);
+        model.addAttribute("cities", cityService.findAllCities());
+        return "drivers/editDriver";
+    }
+
+    @PostMapping("/editDriver")
+    public String updateDriver(@ModelAttribute("driver") DriverDTO driverDto, Model model) {
+        driverService.updateDriver(driverDto);
+        return "redirect:/drivers";
+    }
+
+    @GetMapping("/delete/{privateNumber}")
+    public String deleteDriver(@PathVariable("privateNumber") String privateNumber) {
+        driverService.deleteDriver(privateNumber);
+        return "redirect:/drivers";
     }
 
 }

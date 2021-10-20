@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>New Truck</title>
+</head>
+<body style="height: 100%; display: flex; flex-direction: column">
+
+<header th:insert="main/pageTemplate.html :: header"> </header>
+
+<div style="display: flex; flex-direction: row; height: 100%">
+
+    <div th:insert="main/pageTemplate.html :: aside" style="height: 100%"> </div>
+
+    <div>
+        <h2>
+            New Driver
+        </h2>
+        <form method="post" th:action="@{/drivers/newDriver}" th:object="${driver}">
+            <div class="row g-3">
+                <div class="col-sm-4">
+                    <label class="form-label">Name</label>
+                    <input th:field="*{user.name}" type="text" class="form-control" id="number">
+                    <div class="invalid-feedback">
+                        Valid number is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="form-label">Surname</label>
+                    <input th:field="*{user.surname}" type="text" class="form-control" id="surname">
+                    <div class="invalid-feedback">
+                        Valid capacity is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="form-label">Privatenumber</label>
+                    <input th:field="*{privateNumber}" type="text" class="form-control" id="privatenumber">
+                    <div class="invalid-feedback">
+                        Valid capacity is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="form-label">Status</label>
+                    <input th:field="*{status}" type="text" class="form-control" id="status">
+                    <div class="invalid-feedback">
+                        Valid capacity is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="form-label">City</label>
+                    <select th:field="*{city.id}" class="form-select" id="city">
+                        <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}">
+                        </option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Valid city is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-6" style="text-align: end">
+                    <button class="btn btn-primary btn-sm" style="vertical-align: bottom" type="submit">Add</button>
+                </div>
+                <div>
+                    <a th:href="@{/drivers}" class="btn btn-default btn-sm">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,21 +1,22 @@
 package com.dtlogistics.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "distance")
 public class Distance extends AbstractModel {
 
     private int distance;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "from_id", referencedColumnName = "id", nullable = false)
-    private Waypoint from;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "to_id", referencedColumnName = "id", nullable = false)
-    private Waypoint to;
+//    @OneToOne(mappedBy = "from_id", fetch=FetchType.LAZY)
+//    private Waypoint from;
+//
+//    @OneToOne(mappedBy = "to_id", fetch=FetchType.LAZY)
+//    private Waypoint to;
 }

@@ -1,50 +1,41 @@
 package com.dtlogistics.dao;
 
-import com.dtlogistics.config.HibernateSessionFactoryUtil;
 import com.dtlogistics.models.Truck;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-
+import javax.persistence.TypedQuery;
 import java.util.List;
+
 @Repository
-public class TruckDAO implements DAO<Truck> {
+public class TruckDAO extends AbstractDAO<Truck, Integer> {
 
     @Override
-    public Truck findById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Truck.class, id);
+    public Truck findById(Integer id) {
+        return em.find(Truck.class, id);
+    }
+
+    public Truck findByNumber (String number) {
+        TypedQuery<Truck> query = em.createNamedQuery("Truck.findByNumber", Truck.class);
+        query.setParameter("number", number);
+        return query.getSingleResult();
     }
 
     @Override
     public List<Truck> findAll() {
-        List<Truck> trucks = (List<Truck>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Truck").list();
-        return trucks;
+        return em.createQuery("From Truck", Truck.class).getResultList();
     }
 
     @Override
     public void save(Truck truck) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(truck);
-        t.commit();
-        session.close();
+        em.persist(truck);
     }
 
     @Override
     public void update(Truck truck) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.update(truck);
-        t.commit();
-        session.close();
+        em.merge(truck);
     }
 
     @Override
     public void delete(Truck truck) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.delete(truck);
-        t.commit();
-        session.close();
+        em.remove(truck);
     }
 }

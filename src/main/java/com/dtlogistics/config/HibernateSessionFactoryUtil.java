@@ -1,8 +1,7 @@
 package com.dtlogistics.config;
 
 
-import com.dtlogistics.models.Driver;
-import com.dtlogistics.models.Truck;
+import com.dtlogistics.models.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -18,6 +17,13 @@ public class HibernateSessionFactoryUtil {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(Driver.class);
                 configuration.addAnnotatedClass(Truck.class);
+                configuration.addAnnotatedClass(Cargo.class);
+                configuration.addAnnotatedClass(Order.class);
+                configuration.addAnnotatedClass(City.class);
+                configuration.addAnnotatedClass(Distance.class);
+                configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(Waypoint.class);
+                configuration.addAnnotatedClass(Workshift.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 

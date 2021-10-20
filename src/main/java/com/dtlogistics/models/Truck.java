@@ -1,13 +1,20 @@
 package com.dtlogistics.models;
 
 import com.dtlogistics.models.modelEnum.TruckCondition;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = "Truck.findByNumber",
+                query = "SELECT t FROM Truck t WHERE t.number=:number")
+})
+
 @Entity
-@Data
+@Getter
+@Setter
 @Table (name = "trucks")
 public class Truck extends AbstractModel {
 
@@ -28,4 +35,12 @@ public class Truck extends AbstractModel {
     @OneToMany(mappedBy = "truck")
     private List<Driver> driverList;
 
+    @Override
+    public String toString() {
+        return "Truck{" +
+                "number='" + number + '\'' +
+                ", capacity=" + capacity +
+                ", condition=" + condition +
+                '}';
+    }
 }
