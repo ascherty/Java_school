@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers/driverDetails.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers/drivers.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers/new.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers/newdriver.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/drivers" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main/pageTemplate.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks/new.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks/newTruck.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks/truckDetails.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks/trucksAll.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/trucks" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/userDetails.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/usersAll.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users" />
+      </map>
+    </option>
+  </component>
+</project>
